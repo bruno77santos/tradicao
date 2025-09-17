@@ -96,7 +96,7 @@ const Footer = () => {
               </p>
             </div>
             <div className="text-sm text-gray-400">
-              <p>Desenvolvido por AMD Marketing Digital Ltda</p>
+              <p>Desenvolvido por Caulfield Code</p>
             </div>
           </div>
 
