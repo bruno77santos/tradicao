@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/sync-products?secret=!@Caulfield2020!@",
+      "schedule": "0 * * * *"
+    }
+  ]
+}

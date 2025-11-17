@@ -1,4 +1,4 @@
-//src/types/index.ts
+// src/types/index.ts
 
 export interface Testimonial {
   id: number;
@@ -32,3 +32,18 @@ export interface ContactInfo {
   };
 }
 
+/**
+ * Interface para os produtos do Mercado Livre, conforme retornado pela nossa API.
+ * Ela substitui a interface genérica `Product` para este contexto específico.
+ */
+export interface MercadoLivreProduct {
+  id: string;
+  title: string;
+  price: number;
+  currency: string;
+  permalink: string;
+  thumbnail: string;
+  condition: string;
+  available_quantity: number;
+  sold_quantity: number;
+}
