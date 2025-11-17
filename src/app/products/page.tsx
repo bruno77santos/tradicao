@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image'; // <-- PASSO 1: Importar o componente Image do Next.js
 
 // Interface final com todos os campos
 interface Product {
@@ -35,8 +36,13 @@ export default function ProdutosMercadoLivrePage() {
         const { data } = await response.json();
         setProducts(data);
 
-      } catch (err: any) {
-        setError(err.message);
+      // PASSO 2: Corrigir o erro de "any"
+      } catch (err: unknown) { // Alterado de 'any' para 'unknown'
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('Ocorreu um erro desconhecido');
+        }
       } finally {
         setLoading(false);
       }
@@ -76,7 +82,14 @@ export default function ProdutosMercadoLivrePage() {
               <tr key={product.id}>
                 <td style={styles.td}>
                   {product.imageUrl ? (
-                    <img src={product.imageUrl} alt={product.nome} style={styles.image} />
+                    // PASSO 3: Substituir <img> por <Image />
+                    <Image 
+                      src={product.imageUrl} 
+                      alt={product.nome} 
+                      width={60} // Propriedade 'width' é obrigatória
+                      height={60} // Propriedade 'height' é obrigatória
+                      style={styles.image} 
+                    />
                   ) : (
                     <div style={styles.noImage}>Sem foto</div>
                   )}
@@ -109,7 +122,7 @@ export default function ProdutosMercadoLivrePage() {
   );
 }
 
-// Estilos atualizados
+// Estilos (sem alterações)
 const styles: { [key: string]: React.CSSProperties } = {
   container: { fontFamily: 'Arial, sans-serif', padding: '2rem', maxWidth: '1400px', margin: '0 auto' },
   title: { fontSize: '2rem', marginBottom: '0.5rem' },
@@ -119,6 +132,6 @@ const styles: { [key: string]: React.CSSProperties } = {
   th: { background: '#f4f4f4', padding: '12px', border: '1px solid #ddd', textAlign: 'center', verticalAlign: 'middle' },
   td: { padding: '10px', border: '1px solid #ddd', verticalAlign: 'middle', textAlign: 'center' },
   link: { color: '#0070f3', textDecoration: 'none', fontWeight: 'bold' },
-  image: { width: '60px', height: '60px', objectFit: 'cover', borderRadius: '4px' },
+  image: { objectFit: 'cover', borderRadius: '4px' }, // 'width' e 'height' removidos daqui pois agora são props do componente Image
   noImage: { width: '60px', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f0f0f0', color: '#aaa', fontSize: '12px', borderRadius: '4px' },
 };
