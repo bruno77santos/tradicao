@@ -31,12 +31,11 @@ interface BlingProductDetails {
 
 // --- FUNÇÃO DE FETCH COM LÓGICA DE RETENTATIVA (BACKOFF) ---
 async function fetchProductDetailsWithRetry(productId: number, headers: HeadersInit, maxRetries = 5): Promise<BlingProductDetails | null> {
-    // (código desta função permanece idêntico ao da resposta anterior)
     let attempt = 0;
     let currentDelay = 1000;
     while (attempt < maxRetries) {
         try {
-            const response = await fetch(`https://bling.com.br/Api/v3/produtos/${productId}`, { headers } );
+            const response = await fetch(`https://bling.com.br/Api/v3/produtos/${productId}`, { headers }  );
             if (response.ok) { const { data } = await response.json(); return data; }
             if (response.status === 404) { return null; }
             if (response.status === 429) {
@@ -48,7 +47,8 @@ async function fetchProductDetailsWithRetry(productId: number, headers: HeadersI
                 currentDelay *= 2;
                 attempt++;
             }
-        } catch (error) {
+        // CORREÇÃO 1: Renomear 'error' para '_error'
+        } catch (_error) {
             await delay(currentDelay);
             currentDelay *= 2;
             attempt++;
@@ -74,12 +74,13 @@ export async function getBlingProducts(): Promise<BlingProduct[]> {
     };
 
     // 1. BUSCAR TODOS OS VÍNCULOS COM PAGINAÇÃO
-    let allLinks: BlingProductLink[] = [];
+    // CORREÇÃO 2: 'let' alterado para 'const'
+    const allLinks: BlingProductLink[] = [];
     let currentPage = 1;
     let hasMorePages = true;
     while (hasMorePages) {
       const linksUrl = `https://bling.com.br/Api/v3/produtos/lojas?idLoja=${mercadoLivreLojaId}&pagina=${currentPage}&limite=100`;
-      const linksResponse = await fetch(linksUrl, { headers } );
+      const linksResponse = await fetch(linksUrl, { headers }  );
       if (!linksResponse.ok) { hasMorePages = false; continue; }
       const { data: pageLinks } = await linksResponse.json();
       if (pageLinks && pageLinks.length > 0) { allLinks.push(...pageLinks); currentPage++; } else { hasMorePages = false; }
@@ -100,7 +101,7 @@ export async function getBlingProducts(): Promise<BlingProduct[]> {
           preco: link.preco ?? 0,
           estoque: details.estoque?.saldoVirtualTotal ?? 0,
           imageUrl: imageUrl,
-          url: `https://produto.mercadolivre.com.br/${link.codigo.replace('MLB', 'MLB-' )}`,
+          url: `https://produto.mercadolivre.com.br/${link.codigo.replace('MLB', 'MLB-'  )}`,
         });
       }
       await delay(100);
@@ -108,6 +109,6 @@ export async function getBlingProducts(): Promise<BlingProduct[]> {
     return finalProducts;
   } catch (error) {
     console.error('Erro fatal ao buscar produtos do Bling:', error);
-    return []; // Retorna um array vazio em caso de erro fatal
+    return [];
   }
 }

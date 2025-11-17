@@ -75,14 +75,15 @@ export async function GET() {
       'Accept': 'application/json',
     };
 
-    // 1. BUSCAR TODOS OS VÍNCULOS COM PAGINAÇÃO (código mantido)
-    let allLinks: BlingProductLink[] = [];
+    // 1. BUSCAR TODOS OS VÍNCULOS COM PAGINAÇÃO
+    // CORREÇÃO 1: 'let' alterado para 'const'
+    const allLinks: BlingProductLink[] = [];
     let currentPage = 1;
     let hasMorePages = true;
     console.log("Iniciando busca de vínculos com paginação...");
     while (hasMorePages) {
       const linksUrl = `https://bling.com.br/Api/v3/produtos/lojas?idLoja=${mercadoLivreLojaId}&pagina=${currentPage}&limite=100`;
-      const linksResponse = await fetch(linksUrl, { headers } );
+      const linksResponse = await fetch(linksUrl, { headers }  );
       if (!linksResponse.ok) { hasMorePages = false; continue; }
       const { data: pageLinks } = await linksResponse.json();
       if (pageLinks && pageLinks.length > 0) { allLinks.push(...pageLinks); currentPage++; } else { hasMorePages = false; }
@@ -109,18 +110,19 @@ export async function GET() {
           preco: link.preco ?? 0,
           estoque: details.estoque?.saldoVirtualTotal ?? 0,
           imageUrl: imageUrl,
-          url: `https://produto.mercadolivre.com.br/${link.codigo.replace('MLB', 'MLB-' )}`,
+          url: `https://produto.mercadolivre.com.br/${link.codigo.replace('MLB', 'MLB-'  )}`,
         });
       }
-      // Adiciona uma pequena pausa entre cada requisição para ser ainda mais gentil com a API
-      await delay(100); // 100ms de pausa entre cada chamada
+      await delay(100);
     }
 
     console.log(`Processamento concluído. ${finalProducts.length} produtos foram carregados com sucesso.`);
     return NextResponse.json({ data: finalProducts });
 
-  } catch (error: any) {
+  // CORREÇÃO 2: 'any' alterado para 'unknown' com verificação
+  } catch (error: unknown) {
     console.error('Erro fatal na rota /api/bling-products:', error);
-    return NextResponse.json({ error: error.message || 'Erro inesperado no servidor.' }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'Erro inesperado no servidor.';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
