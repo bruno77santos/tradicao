@@ -4,6 +4,8 @@
 import React from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import Image from 'next/image'; // O import já deve estar no topo do arquivo
+
 
 const PrevButton = (props: React.ComponentProps<'button'>) => (
   <button
@@ -47,11 +49,12 @@ const HeroSection = () => {
                   rel="noopener noreferrer"
                   className="block h-64 sm:h-80 md:h-96 lg:h-[500px]"
                 >
-                  <img
-                    src={banner.imageUrl}
-                    alt={banner.alt}
-                    className="h-full w-full object-cover"
-                  />
+                  <Image
+  src={banner.imageUrl}
+  alt={banner.alt}
+  fill // 'fill' faz a imagem preencher o container pai
+  className="object-cover" // 'object-cover' continua funcionando com 'fill'
+/>
                 </a>
               </div>
             ))}

@@ -1,6 +1,8 @@
 // src/app/components/ProductsSection.tsx
 
 import { Package, Wrench, Palette, Cog } from 'lucide-react';
+import Image from 'next/image'; // Adicionamos o import do Image
+
 
 const ProductsSection = () => {
   const brands = [
@@ -40,11 +42,13 @@ const ProductsSection = () => {
                 className="bg-white rounded-xl p-6 text-center shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 group border border-gray-200"
               >
                 <div className="h-20 flex items-center justify-center mx-auto mb-4">
-                  <img 
-                    src={brand.logoUrl} 
-                    alt={brand.name} 
-                    className="max-h-full max-w-full object-contain" 
-                  />
+                  <Image
+  src={brand.logoUrl}
+  alt={brand.name}
+  width={120} // Defina uma largura base
+  height={40} // Defina uma altura base
+  className="max-h-12 w-auto object-contain" // Ajuste as classes para controlar o tamanho
+/>
                 </div>
                 <h4 className="font-bold text-gray-800 text-lg mb-1">{brand.name}</h4>
                 <p className="text-sm text-gray-600">{brand.description}</p>

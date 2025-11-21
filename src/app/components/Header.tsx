@@ -1,6 +1,7 @@
 // src/app/components/Header.tsx
 'use client';
 
+import Image from 'next/image'; // <-- 1. IMPORTE O COMPONENTE IMAGE
 import { useState, useEffect } from 'react';
 import { Search, MapPin, User, ShoppingCart, Menu, X } from 'lucide-react';
 
@@ -54,10 +55,18 @@ const Header = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="/" className="flex-shrink-0">
-            <img src="/logo.png" alt="Logo Tradição" className="h-12 w-auto" />
-          </a>
-
+          <div className="col-span-2">
+  <a href="/">
+    {/* 2. SUBSTITUA A TAG IMG */}
+    <Image
+      src="/logo.png"
+      alt="Logo Tradição"
+      width={160} // Defina uma largura aproximada para otimização
+      height={48}  // Defina a altura correspondente
+      className="h-12 w-auto" // Mantenha as classes para estilização
+    />
+  </a>
+</div>
           {/* Barra de Busca (Desktop) */}
           <div className="hidden md:flex flex-grow max-w-xl mx-8">
             <div className="relative w-full">
