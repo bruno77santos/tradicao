@@ -2,7 +2,7 @@
 
 'use client';
 import { useState } from 'react';
-import { Send, MessageCircle, Mail, Phone, MapPin } from 'lucide-react';
+import { Send, Mail, Phone, MapPin } from 'lucide-react';
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });

@@ -1,5 +1,5 @@
 // src/app/components/AboutSection.tsx
-import { Target, Users, Eye, Heart } from 'lucide-react';
+
 
 const AboutSection = () => {
 

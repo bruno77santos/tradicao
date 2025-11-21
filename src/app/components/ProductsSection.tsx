@@ -1,6 +1,5 @@
 // src/app/components/ProductsSection.tsx
 
-import { Package, Wrench, Palette, Cog } from 'lucide-react';
 import Image from 'next/image'; // Adicionamos o import do Image
 
 

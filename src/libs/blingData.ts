@@ -48,7 +48,8 @@ async function fetchProductDetailsWithRetry(productId: number, headers: HeadersI
                 attempt++;
             }
         // CORREÇÃO 1: Renomear 'error' para '_error'
-        } catch (_error) {
+                } catch (_) {
+
             await delay(currentDelay);
             currentDelay *= 2;
             attempt++;
