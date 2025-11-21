@@ -2,12 +2,6 @@
 import { Target, Users, Eye, Heart } from 'lucide-react';
 
 const AboutSection = () => {
-  const values = [
-    { icon: Target, title: 'Missão', description: 'Fornecer ao ramo da marcenaria sempre os melhores produtos e lançamentos do mercado, buscando novas tendências e facilitando a funcionalidade, produção e o design do móvel.' },
-    { icon: Users, title: 'Mercado', description: 'Trabalhamos com tintas, vernizes, adesivos, laminados, ferragens, ferramentas, máquinas e acessórios, entregando em toda a região do Grande Rio de Janeiro e outras cidades.' },
-    { icon: Eye, title: 'Visão', description: 'Ser referência de mercado, mantendo nossos princípios e abrindo a empresa para novas possibilidades de futuro, sempre buscando inovações e expansão.' },
-    { icon: Heart, title: 'Valores', description: 'Respeito e dedicação aos clientes e fornecedores, Excelência, segurança, integridade e qualidade nos produtos e serviços.' }
-  ];
 
   return (
     <section id="sobre" className="py-20 bg-white">
