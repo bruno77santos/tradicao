@@ -1,60 +1,64 @@
+// src/app/components/ProductCarousel.tsx
 'use client';
 
-import React, { useCallback } from 'react';
+import React from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import type { Product } from '@prisma/client';
 import ProductCard from './ProductCard';
-import './embla.css';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
-// 1. CORREÇÃO: Reescrever PrevButton como um componente React válido.
-// Ele agora recebe as props e retorna um elemento <button>.
-const PrevButton: React.FC<{ enabled: boolean; onClick: () => void }> = (props) => {
-  const { enabled, onClick } = props;
-  return (
-    <button className="embla__button embla__button__prev" onClick={onClick} disabled={!enabled}>
-      <svg className="embla__button__svg" viewBox="0 0 24 24">
-        <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
-      </svg>
-    </button>
-  );
-};
+// --- CORREÇÃO AQUI ---
+// A interface agora inclui 'url' e 'estoque' para ser compatível com o ProductCard
+interface Product {
+  id: number | bigint;
+  nome: string;
+  preco: number;
+  imageUrl: string | null;
+  url: string;      // Adicionado
+  estoque: number;  // Adicionado
+}
 
-// 2. CORREÇÃO: Reescrever NextButton como um componente React válido.
-const NextButton: React.FC<{ enabled: boolean; onClick: () => void }> = (props) => {
-  const { enabled, onClick } = props;
-  return (
-    <button className="embla__button embla__button__next" onClick={onClick} disabled={!enabled}>
-      <svg className="embla__button__svg" viewBox="0 0 24 24">
-        <path fill="currentColor" d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"></path>
-      </svg>
-    </button>
-  );
-};
+interface ProductCarouselProps {
+  products: Product[];
+  title: string;
+  subtitle?: string;
+}
 
-export default function ProductCarousel({ products }: { products: Product[] }) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' });
+const ProductCarousel = ({ products, title, subtitle }: ProductCarouselProps) => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: 'start',
+    containScroll: 'trimSnaps',
+  });
 
-  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
-  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
-
-  // O restante do componente permanece o mesmo.
-  if (!products || products.length === 0) return null;
+  const scrollPrev = () => emblaApi?.scrollPrev();
+  const scrollNext = () => emblaApi?.scrollNext();
 
   return (
-    <div className="embla">
-      <div className="embla__viewport" ref={emblaRef}>
-        <div className="embla__container">
-          {products.map((product) => (
-            <div className="embla__slide p-2" key={product.id.toString()}>
-              <ProductCard product={product} />
-            </div>
-          ))}
+    <section className="py-16 bg-gray-50">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-800">{title}</h2>
+            {subtitle && <p className="text-gray-600 mt-1">{subtitle}</p>}
+          </div>
+          <div className="hidden sm:flex gap-2">
+            <button onClick={scrollPrev} className="bg-white border rounded-full p-2 shadow-sm hover:bg-gray-100 transition-colors"><ArrowLeft /></button>
+            <button onClick={scrollNext} className="bg-white border rounded-full p-2 shadow-sm hover:bg-gray-100 transition-colors"><ArrowRight /></button>
+          </div>
+        </div>
+
+        <div className="overflow-hidden" ref={emblaRef}>
+          <div className="flex -ml-4">
+            {products.map((product) => (
+              <div key={String(product.id)} className="flex-[0_0_80%] sm:flex-[0_0_50%] md:flex-[0_0_33.33%] lg:flex-[0_0_25%] pl-4">
+                {/* Agora não haverá mais erro aqui */}
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-      
-      {/* 3. A chamada aos componentes agora está correta, pois eles são componentes válidos. */}
-      <PrevButton onClick={scrollPrev} enabled={true} />
-      <NextButton onClick={scrollNext} enabled={true} />
-    </div>
+    </section>
   );
-}
+};
+
+export default ProductCarousel;

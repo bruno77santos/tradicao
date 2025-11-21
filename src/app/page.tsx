@@ -1,13 +1,13 @@
 import Header from '@/app/components/Header';
 import HeroSection from '@/app/components/HeroSection';
-import AboutSection from '@/app/components/AboutSection';
-import TestimonialsSection from '@/app/components/TestimonialsSection';
-import ContactSection from '@/app/components/ContactSection';
+import BrandsSection from '@/app/components/BrandsSection';
+import IconCategorySection from '@/app/components/IconCategorySection'; 
+//import TestimonialsSection from '@/app/components/TestimonialsSection';
+//import ContactSection from '@/app/components/ContactSection';
 import Footer from '@/app/components/Footer';
-import ProductsSection from '@/app/components/ProductsSection';
-
 import { PrismaClient } from '@prisma/client';
 import ProductCarousel from '@/app/components/ProductCarousel';
+import AboutSection from '@/app/components/AboutSection';
 
 
 const prisma = new PrismaClient();
@@ -31,8 +31,8 @@ export default async function Home() {
     <main className="min-h-screen">
       <Header />
       <HeroSection />
-      <AboutSection />
-      <ProductsSection />      
+      <IconCategorySection />
+      <BrandsSection />
 
       {/* Nova Seção de Vitrine de Produtos */}
       <section id="vitrine-produtos" className="py-20 bg-gray-50">
@@ -46,23 +46,19 @@ export default async function Home() {
             </p>
           </div>
           
-          {/* Usamos o componente de carrossel com os produtos da vitrine */}
-          <ProductCarousel products={showcaseProducts} />
-          
-          <div className="text-center mt-12">
-            {/* O botão agora leva para a nossa página interna de produtos */}
-            <a
-              href="/produtos"
-              className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-bold text-lg transition-colors"
-            >
-              Ver Todos os Produtos
-            </a>
-          </div>
+          {showcaseProducts.length > 0 && (
+        <ProductCarousel 
+          products={showcaseProducts}
+          title="Nossa Vitrine de Produtos"
+          subtitle="Uma seleção especial de nossos melhores itens para você."
+        />
+      )}
         </div>
       </section>
-      
-      <TestimonialsSection />
-      <ContactSection />
+            <AboutSection /> 
+
+      {/* <TestimonialsSection />*/}
+{/*       <ContactSection />*/}
       <Footer />
     </main>
   );

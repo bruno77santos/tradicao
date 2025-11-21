@@ -1,67 +1,84 @@
-import type { Product } from '@prisma/client';
+// src/app/components/ProductCard.tsx
+import Image from 'next/image';
+import { ExternalLink } from 'lucide-react'; // Ícone para indicar link externo
+
+// A interface agora precisa incluir os campos 'url' e 'estoque' do seu Prisma schema
+interface Product {
+  id: number | bigint;
+  nome: string;
+  preco: number;
+  imageUrl: string | null;
+  url: string; // URL do Mercado Livre
+  estoque: number;
+}
 
 interface ProductCardProps {
   product: Product;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+const ProductCard = ({ product }: ProductCardProps) => {
   if (!product) return null;
 
-  // Formata o preço para o padrão BRL (R$)
-  const formattedPrice = new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  }).format(product.preco);
+  const formatPrice = (price: number) => {
+    return price.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
+  };
 
   return (
-    // A estrutura HTML e de classes é baseada no seu código.
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
-      {/* Container da imagem */}
-      <a href={product.url} target="_blank" rel="noopener noreferrer">
-        <div className="relative w-full h-56 bg-white overflow-hidden">
-          {/* Usamos 'object-cover' para preencher o espaço e evitar as barras cinzas */}
-          <img
-            src={product.imageUrl ?? ''} // Usamos a imagem do nosso banco
+    <div className="group relative flex flex-col h-full bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+      {/* Container da imagem, agora aponta para a URL do ML */}
+      <a href={product.url} target="_blank" rel="noopener noreferrer" className="block">
+        <div className="relative w-full aspect-square overflow-hidden">
+          <Image
+            src={product.imageUrl || '/placeholder-image.png'}
             alt={product.nome}
-            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-            loading="lazy"
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
           />
         </div>
       </a>
-
-      {/* Container do conteúdo */}
-      <div className="p-4 flex flex-col flex-grow">
-        {/* Título */}
+      
+      <div className="flex-1 flex flex-col p-4">
+        {/* Título do produto */}
         <h3 className="text-sm font-semibold text-gray-800 line-clamp-2 mb-2 flex-grow" style={{ minHeight: '40px' }}>
-          {product.nome}
+          <a href={product.url} target="_blank" rel="noopener noreferrer">
+            {product.nome}
+          </a>
         </h3>
+        
+        <div className="mt-2">
+          {/* Preço */}
+          <p className="text-lg font-bold text-gray-900">{formatPrice(product.preco)}</p>
+          
+          {/* Informação de Estoque */}
+          <p className="text-xs text-gray-600 mt-1">
+            {product.estoque > 0 ? (
+              <>
+                <span className="font-semibold text-green-600">{product.estoque}</span> em estoque
+              </>
+            ) : (
+              <span className="text-red-600 font-semibold">Indisponível</span>
+            )}
+          </p>
+        </div>
+      </div>
 
-        {/* Preço */}
-        <p className="text-lg font-bold text-gray-900 mb-2">
-          {formattedPrice}
-        </p>
-
-        {/* Informações de quantidade/estoque */}
-        <p className="text-xs text-gray-600 mb-3">
-          {product.estoque > 0 ? (
-            <>
-              <span className="font-semibold text-green-600">{product.estoque}</span> em estoque
-            </>
-          ) : (
-            <span className="text-red-600 font-semibold">Indisponível</span>
-          )}
-        </p>
-
-        {/* Botão para visualizar no Mercado Livre */}
+      {/* Botão para o Mercado Livre */}
+      <div className="p-4 pt-0 mt-auto">
         <a
-          href={product.url} // Usamos a URL do nosso banco
+          href={product.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded transition-colors duration-200 text-center block text-sm mt-auto"
+          className="w-full flex items-center justify-center bg-[#2b76c3] text-white font-bold py-2 px-4 rounded-md hover:bg-opacity-90 transition-colors"
         >
+          <ExternalLink size={16} className="mr-2" />
           Ver no Mercado Livre
         </a>
       </div>
     </div>
   );
-}
+};
+
+export default ProductCard;

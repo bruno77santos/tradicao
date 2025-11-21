@@ -24,3 +24,18 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+/* Animação para o carrossel de marcas */
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* Move a lista para a esquerda pelo tamanho exato da lista original */
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  /* Aplica a animação 'scroll' com duração de 40s, de forma linear e infinita */
+  animation: scroll 40s linear infinite;
+}

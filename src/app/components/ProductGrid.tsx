@@ -1,17 +1,37 @@
-import type { Product } from '@prisma/client';
-import ProductCard from './ProductCard'; // Importamos nosso novo componente
+// src/app/components/ProductGrid.tsx
+'use client'; // Mantemos 'use client' pois ProductCard pode ter interatividade
 
-export default function ProductGrid({ products }: { products: Product[] }) {
-  if (!products || products.length === 0) {
-    return <p className="text-center text-gray-500">Nenhum produto encontrado.</p>;
-  }
+import ProductCard from './ProductCard';
 
+// A interface agora corresponde exatamente ao seu schema
+interface Product {
+  id: number | bigint;
+  nome: string;
+  preco: number;
+  imageUrl: string | null;
+  url: string;
+  estoque: number;
+}
+
+interface ProductGridProps {
+  products: Product[];
+}
+
+// Este componente agora apenas renderiza o grid de produtos
+export default function ProductGrid({ products }: ProductGridProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {products.map((product) => (
-        // Para cada produto, renderizamos um ProductCard
-        <ProductCard key={product.id.toString()} product={product} />
-      ))}
-    </div>
+    <main className="w-full">
+      {products.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+          {products.map(product => (
+            <ProductCard key={String(product.id)} product={product} />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-16">
+          <p className="text-lg text-gray-600">Nenhum produto encontrado.</p>
+        </div>
+      )}
+    </main>
   );
 }
