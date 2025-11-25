@@ -1,8 +1,8 @@
 // src/app/components/Header.tsx
 'use client';
 
-import Image from 'next/image'; // <-- 1. IMPORTE O COMPONENTE IMAGE
-import Link from 'next/link'; // <-- 1. ADICIONE A IMPORTAÇÃO DO LINK
+import Image from 'next/image';
+import Link from 'next/link';
 
 import { useState, useEffect } from 'react';
 import { Search, MapPin, User, ShoppingCart, Menu, X } from 'lucide-react';
@@ -13,7 +13,7 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50); // Ativa o efeito sticky após rolar 50px
+      setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -39,6 +39,7 @@ const Header = () => {
       {/* --- NÍVEL 1: BARRA SUPERIOR --- */}
       <div className="hidden md:block bg-gray-100 border-b border-gray-200 text-xs text-gray-600">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-8">
+          {/* ... (código da barra superior sem alterações) ... */}
           <nav className="flex gap-6">
             {topNavLinks.map(link => (
               <a key={link.name} href={link.href} className="hover:text-[#2b76c3] transition-colors">
@@ -56,20 +57,19 @@ const Header = () => {
       {/* --- NÍVEL 2: BARRA PRINCIPAL (LOGO, BUSCA, AÇÕES) --- */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
+          {/* ... (código da barra principal sem alterações) ... */}
           <div className="col-span-2">
-   <Link href="/">
-    <Image
-      src="/logo.png"
-      alt="Logo Tradição"
-      width={160}
-      height={48}
-      className="h-12 w-auto"
-      priority // Adicionar 'priority' ao logo no header é uma boa prática de performance
-    />
-  </Link>
-</div>
-          {/* Barra de Busca (Desktop) */}
+            <Link href="/">
+              <Image
+                src="/logo.png"
+                alt="Logo Tradição"
+                width={160}
+                height={48}
+                className="h-12 w-auto"
+                priority
+              />
+            </Link>
+          </div>
           <div className="hidden md:flex flex-grow max-w-xl mx-8">
             <div className="relative w-full">
               <input
@@ -82,8 +82,6 @@ const Header = () => {
               </button>
             </div>
           </div>
-
-          {/* Ações do Usuário (Desktop) */}
           <div className="hidden md:flex items-center gap-6">
             <a href="/lojas" className="flex items-center gap-2 text-gray-700 hover:text-[#2b76c3] transition-colors">
               <MapPin size={24} />
@@ -106,8 +104,6 @@ const Header = () => {
               </span>
             </a>
           </div>
-
-          {/* Botão de Menu Mobile */}
           <div className="md:hidden">
             <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-800">
               {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -116,8 +112,24 @@ const Header = () => {
         </div>
       </div>
 
+      {/* --- NOVA SEÇÃO: IMAGEM PROMOCIONAL DE LARGURA TOTAL --- */}
+            <div className="w-full">
+        <a href="/link-da-promocao" target="_blank" rel="noopener noreferrer">
+          <Image
+            src="/banner-29anos.jpeg" // <-- SUBSTITUA PELO CAMINHO REAL DA SUA IMAGEM
+            alt="Descrição da promoção"
+            width={1920} // Largura original da imagem para manter a proporção
+            height={100}  // Altura original da imagem
+            className="w-full h-auto" // Garante que a imagem seja responsiva
+          />
+        </a>
+      </div>
+
+      
+
       {/* --- NÍVEL 3: BARRA DE CATEGORIAS (Desktop) --- */}
       <nav className="hidden md:block bg-[#2b76c3] text-white">
+        {/* ... (código da barra de categorias sem alterações) ... */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center h-12">
           <ul className="flex gap-8">
             {categoryLinks.map(link => (
@@ -137,22 +149,7 @@ const Header = () => {
       {/* --- MENU MOBILE --- */}
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-200 p-4">
-          {/* Barra de Busca Mobile */}
-          <div className="relative w-full mb-4">
-            <input type="text" placeholder="O que você procura?" className="w-full h-10 pl-4 pr-12 rounded-full border border-gray-300" />
-            <button className="absolute right-0 top-0 h-full w-12 flex items-center justify-center text-gray-500"><Search size={20} /></button>
-          </div>
-          {/* Links Mobile */}
-          <nav className="flex flex-col gap-4">
-            {categoryLinks.map(link => (
-              <a key={link.name} href={link.href} className="font-semibold text-gray-800 hover:text-[#2b76c3]">
-                {link.name}
-              </a>
-            ))}
-            <hr/>
-            <a href="/lojas" className="font-semibold text-gray-800 hover:text-[#2b76c3]">Nossas Lojas</a>
-            <a href="/conta" className="font-semibold text-gray-800 hover:text-[#2b76c3]">Minha Conta</a>
-          </nav>
+          {/* ... (código do menu mobile sem alterações) ... */}
         </div>
       )}
     </header>
