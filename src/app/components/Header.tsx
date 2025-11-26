@@ -61,7 +61,7 @@ const Header = () => {
           <div className="col-span-2">
             <Link href="/">
               <Image
-                src="/logo-horizontal.jpeg"
+                src="/logo-horizontal1.png"
                 alt="Logo Tradição"
                 width={160}
                 height={48}
