@@ -37,7 +37,7 @@ const Footer = () => {
             <Link href="/" className="inline-block mb-6">
               {/* 3. A tag <img> foi substituída por <Image> */}
               <Image
-                src="/logo-ftransparente.jpeg" // Supondo que você tenha uma versão branca do logo
+                src="/logo-horizontal1.png" // Supondo que você tenha uma versão branca do logo
                 alt="Logo Tradição"
                 width={180}
                 height={50}
