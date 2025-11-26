@@ -48,9 +48,9 @@ const Footer = () => {
               Tudo para marceneiros, arquitetos e designers desde 1996.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white"><Facebook size={24} /></a>
-              <a href="#" className="text-gray-400 hover:text-white"><Instagram size={24} /></a>
-              <a href="#" className="text-gray-400 hover:text-white"><Youtube size={24} /></a>
+              <a href="https://www.facebook.com/tradicaofeedback/?locale=pt_BR" className="text-gray-400 hover:text-white"><Facebook size={24} /></a>
+              <a href="https://www.instagram.com/tradicaofeedback/" className="text-gray-400 hover:text-white"><Instagram size={24} /></a>
+              
             </div>
           </div>
 
