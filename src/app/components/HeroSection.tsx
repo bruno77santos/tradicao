@@ -86,7 +86,7 @@ const HeroSection = () => {
                   rel="noopener noreferrer"
                   // A altura agora é definida por uma proporção (aspect-ratio)
                   // Isso é mais flexível que alturas fixas
-className="block relative w-full aspect-[20/9] md:aspect-[25/9]"
+className="block relative w-full aspect-[21/9] md:aspect-[26/9]"
                 >
                   <Image
                     // Escolhe a URL da imagem com base no tamanho da tela
