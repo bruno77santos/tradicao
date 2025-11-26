@@ -80,7 +80,17 @@ const Footer = () => {
       <div className="bg-black/20 py-4">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-gray-500">
           <p>&copy; {new Date().getFullYear()} Tradição. Todos os direitos reservados.</p>
-          <p>Desenvolvido por [Seu Nome ou Empresa]</p>
+          <p>
+  Desenvolvido por{' '}
+  <a 
+    href="https://caulfieldco.com.br" // <-- Coloque o URL do seu site aqui
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="font-semibold text-gray-400 hover:text-white transition-colors"
+  >
+    Caulfield Code
+  </a>
+</p>
         </div>
       </div>
     </footer>
