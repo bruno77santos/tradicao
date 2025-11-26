@@ -53,7 +53,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="bg-gray-100 pb-10" style={{ paddingTop: `${headerHeight}px` }}>
+    <section className="bg-gray-100" style={{ paddingTop: `${headerHeight}px` }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="overflow-hidden rounded-xl shadow-lg" ref={emblaRef}>
           <div className="flex">
