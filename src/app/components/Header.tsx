@@ -112,7 +112,7 @@ const Header = () => {
         </div>
       </div>
 
-      {/* --- NOVA SEÇÃO: IMAGEM PROMOCIONAL DE LARGURA TOTAL --- */}
+      {/* --- NOVA SEÇÃO: IMAGEM PROMOCIONAL DE LARGURA TOTAL --- 
             <div className="w-full">
         <a href="/link-da-promocao" target="_blank" rel="noopener noreferrer">
           <Image
@@ -124,7 +124,7 @@ const Header = () => {
           />
         </a>
       </div>
-
+*/}
       
 
       {/* --- NÍVEL 3: BARRA DE CATEGORIAS (Desktop) --- */}
