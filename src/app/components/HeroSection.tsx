@@ -49,6 +49,12 @@ const HeroSection = () => {
       link: "/produtos", 
       alt: "Banner principal Sayerlack" 
     },
+       { 
+      imageUrlDesktop: "/banner-2-desktop.jpeg", 
+      imageUrlMobile: "/banner-2-mobile.jpeg",
+      link: "/produtos", 
+      alt: "Banner principal Sayerlack" 
+    },
     // ... outros banners
   ];
 

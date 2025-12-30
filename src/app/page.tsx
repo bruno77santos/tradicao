@@ -8,6 +8,8 @@ import Footer from '@/app/components/Footer';
 import { PrismaClient } from '@prisma/client';
 import ProductCarousel from '@/app/components/ProductCarousel';
 import AboutSection from '@/app/components/AboutSection';
+import ContactStores from './components/ContactStores';
+import StoresSection from './components/StoresSection';
 
 
 const prisma = new PrismaClient();
@@ -55,6 +57,8 @@ export default async function Home() {
       )}
         </div>
       </section>
+            <ContactStores /> 
+            <StoresSection /> 
             <AboutSection /> 
 
       {/* <TestimonialsSection />*/}
